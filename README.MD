@@ -1,17 +1,38 @@
-# ARCS 语音解决方案
+# SparkMinds Passport 智能打卡机系统
 
-基于 ARCS SDK 的语音交互解决方案，支持多项目的语音解决方案定制功能。
+> 创智实验室 (SparkMinds) 硬件设备固件与综合管理工程，运行于 ARCS-MINI 硬件平台。
 
-## 项目概述
+- 📖 **核心应用与详细文档**：[apps/sparkminds-passport/README.md](apps/sparkminds-passport/README.md)
+- 📋 **学员发卡花名册**：[apps/sparkminds-passport/STUDENTS.md](apps/sparkminds-passport/STUDENTS.md)
+- ⚡ **固件全量烧录规范**：[全量烧录规范.md](全量烧录规范.md)
 
-本项目是一个完整的语音助手解决方案，集成了语音唤醒、语音识别、云端交互、本地播放等功能。
+---
 
-### 主要特性
+## 🔄 免修改代码：串口 / ADB 一键切换学员身份 (Student Provision)
 
-- 语音唤醒和识别
-- 云端语音服务对接
-- 本地音频播放
-- WiFi/BLE 网络连接
+设备内置花名册解析引擎，**无需重新编译代码、无需重新烧录**，通过串口终端或 ADB 即可秒级切换任意学员账号（自动清空旧缓存并安全写入新密钥）：
+
+### 1. 串口切换（推荐）
+1. 串口终端连接设备（波特率 `115200`，8-N-1，如 `COM4`）；
+2. 输入指令并回车：
+   ```bash
+   provision 002    # 一键切换为 陆昭闻（Owen）
+   ```
+   *(亦可输入完整学号 `provision SM-2026-002`，或其它学员编号如 `001`、`003`、`004`、`013` 等)*
+3. 终端打印切换成功后，重启设备即可显示新学员身份。
+
+### 2. ADB 切换
+```powershell
+# Windows
+.\tools\adb\adb.exe shell provision 002
+
+# Linux / Mac
+./tools/adb/adb shell provision 002
+```
+
+---
+
+## 平台基础概述
 
 ## 环境搭建
 

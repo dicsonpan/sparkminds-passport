@@ -48,6 +48,53 @@
     - `ota check`：查询云端最新版本。
     - `ota update`：一键触发升级到云端最新版。
 
+## 🔄 免修改代码：串口 / ADB 一键切换学员身份 (Student Provision)
+
+设备固件内置花名册解析引擎与安全发卡指令。在无需重新编译代码、无需重新烧录固件的情况下，只需通过**串口助手**或 **ADB Shell** 即可随时将设备切换为花名册中的任意学员账号（会自动清空上一位学员的历史 Token、余额与头像缓存，写入新学员的硬件密钥并安全重置）：
+
+### 1. 串口终端切换步骤（推荐）
+1. 使用 USB 数据线或串口线连接设备，打开任意串口终端工具（如 MobaXterm、PuTTY、SSCOM、VSCode Serial Monitor 等）：
+   - **波特率**：`115200`
+   - **数据位/停止位**：`8-N-1`
+   - **端口**：选择对应的 COM 口（如 `COM4`）
+2. 在控制台中输入切换指令并回车：
+   ```bash
+   provision 002    # 一键切换为 陆昭闻（Owen）
+   ```
+   *(亦可输入完整学号：`provision SM-2026-002`)*
+3. 终端将输出确认日志：
+   ```text
+   正在写入学员身份：陆昭闻（Owen） (SM-2026-002)
+   写入成功！学员身份已就绪：陆昭闻（Owen） (SM-2026-002)
+   ```
+4. 按复位键或断电重启设备后，屏幕即直接显示为目标学员账号。
+
+### 2. ADB Shell 切换步骤
+若设备已连接电脑且处于运行状态，在命令行直接运行内置 ADB 即可完成一键切换：
+```powershell
+# Windows
+.\tools\adb\adb.exe shell provision 002
+
+# Linux / Mac
+./tools/adb/adb shell provision 002
+```
+
+### 3. 常用学员快捷切换对照表
+| 指令 | 目标学员 | 学号 (PID) |
+| :--- | :--- | :--- |
+| `provision 001` | **梁根润** | `SM-2026-001` |
+| `provision 002` | **陆昭闻（Owen）** | `SM-2026-002` |
+| `provision 003` | **仇绍恒** | `SM-2026-003` |
+| `provision 004` | **梁根珹（梁根城）** | `SM-2026-004` |
+| `provision 006` | **王之谦** | `SM-2026-006` |
+| `provision 013` | **徐一潇（Jeremy）** | `SM-2026-013` |
+| `provision 051` | **王宥森** | `SM-2026-051` |
+| `provision 070` | **郭涵若（Cavin）** | `SM-2026-070` |
+| `provision 193` | **Aiden Kwok** | `SM-2026-193` |
+| `provision 565` | **Eric（金家熠）** | `SM-2026-565` |
+
+完整花名册信息请查阅 [STUDENTS.md](STUDENTS.md)。
+
 ## 📂 代码架构导读
 * **`passport_app.c`**：核心应用层。管理主事件循环、心跳定时器（10分钟）、NTP 校时触发逻辑、出厂学号防覆盖保护。
 * **`passport_net.c`**：网络通信层。封装了基于 Token 的 HTTPS 请求（处理 `/verify`、`/auth`、`/heartbeat`、`/me` 等 API），具有 Token 过期自动刷新机制。
