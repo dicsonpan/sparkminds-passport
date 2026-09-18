@@ -1,0 +1,39 @@
+.clangd
+build/
+build*/
+.claude/settings.local.json
+.vscode/
+.cache/
+!.agents/skills/build/
+!.claude/skills/build/
+tools/tone_tool/output
+tools/tone_tool/tts
+*.lpk
+*.zip
+*.txz
+*.tar.gz
+*.7z
+.agents/local/
+listenai-dev-tools/
+tmp/
+*.log
+arcs-sdk/
+
+# Temporary root test & dump files
+crash_err.txt
+crash_logs.txt
+bat_content.txt
+temp_net.txt
+*.jpg
+*.png
+*.bin
+!res/**
+
+# Server backend code
+apps/api.sparkminds.io/
+
+# Scratch scripts
+read_log.ps1
+test_shell.ps1
+watcher.ps1
+ota_info.json
