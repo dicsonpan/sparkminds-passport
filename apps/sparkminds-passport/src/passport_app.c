@@ -342,7 +342,7 @@ static const student_entry_t S_STUDENTS[] = {
     { "Woody Du", "SM-2026-NEW", "7fc09c34ec7c2728b8bd37758ef64ba7c8d0ec0145b23b0b4a275473b73781ea" },
 };
 
-#define CURRENT_TARGET_STUDENT_ID "SM-2026-004"
+#define CURRENT_TARGET_STUDENT_ID "SM-2026-067"
 
 static bool student_hex_to_bytes(const char *hex, uint8_t *bytes, size_t byte_len) {
     if (!hex || strlen(hex) != byte_len * 2) return false;
